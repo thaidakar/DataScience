@@ -2,12 +2,7 @@ from fastapi import FastAPI, File, UploadFile
 from PIL import Image
 from io import BytesIO
 import numpy as np
-import tensorflow as tf
 from tensorflow import keras
-from keras import layers
-import wandb
-from wandb.keras import WandbMetricsLogger
-import matplotlib.pyplot as plt
 import cv2
 from slowapi.errors import RateLimitExceeded
 from slowapi import Limiter, _rate_limit_exceeded_handler
