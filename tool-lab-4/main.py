@@ -2,7 +2,7 @@ from fastapi import FastAPI, File, UploadFile
 from PIL import Image
 from io import BytesIO
 import numpy as np
-from tensorflow import keras
+from keras.models import load_model
 import cv2
 from slowapi.errors import RateLimitExceeded
 from slowapi import Limiter, _rate_limit_exceeded_handler
@@ -38,6 +38,9 @@ def convertFileToBatchedImage(fileContent):
   return batchedImage
 
 def predictImage(batchedImage):
-   model = keras.models.load_model("trainedModel.h5")
-   label = model.predict(batchedImage)
-   return label
+  model = load_model("trainedModel.h5")
+  # predict the class
+  result = model.predict(batchedImage)
+  # convert the probabilities to class labels
+  label = np.argmax(result, axis=1)
+  return label
